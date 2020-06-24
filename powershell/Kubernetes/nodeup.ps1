@@ -440,7 +440,7 @@ Get-Job -Name "yaml-install" | Wait-Job
 Import-Module powershell-yaml
 
 # Parse the YAML cluster specification file into a PowerShell object and remove the file.
-$KopsClusterSpecification = (Get-Content $KopsClusterSpecificationFile | ConvertFrom-Yaml 2>&1)
+$KopsClusterSpecification = (Get-Content $KopsClusterSpecificationFile | ConvertFrom-Yaml 2>&1).spec
 Remove-Item -Path $KopsClusterSpecificationFile -Force
 
 # Extract all necessary configuration items regarding the cluster.
@@ -463,7 +463,7 @@ New-KubernetesConfigurations `
 # Download the pre-made flannel ServiceAccount Kubernetes configuaration file.
 Read-S3Object `
   -BucketName "$KopsStateStoreBucket" `
-  -Key "$KopsStateStorePrefix/config" `
+  -Key "$KopsStateStorePrefix/kubeconfig" `
   -File "$KubernetesDirectory/kconfigs/flannel.kcfg"
 
 Install-AwsKubernetesFlannel -InstallationDirectory $KubernetesDirectory
