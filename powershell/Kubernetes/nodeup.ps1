@@ -463,7 +463,7 @@ New-KubernetesConfigurations `
 # Download the pre-made flannel ServiceAccount Kubernetes configuaration file.
 Read-S3Object `
   -BucketName "$KopsStateStoreBucket" `
-  -Key "$KopsStateStorePrefix/serviceaccount/flannel.kcfg" `
+  -Key "$KopsStateStorePrefix/config" `
   -File "$KubernetesDirectory/kconfigs/flannel.kcfg"
 
 Install-AwsKubernetesFlannel -InstallationDirectory $KubernetesDirectory
